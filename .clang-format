@@ -5,6 +5,7 @@ AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
 AlignArrayOfStructures: Right
 AlignOperands: AlignAfterOperator
+PointerAlignment: Right
 AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 BreakArrays: false
