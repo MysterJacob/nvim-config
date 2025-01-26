@@ -2,7 +2,7 @@
 BasedOnStyle: Google
 SpaceBeforeParens: Never
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: true
+AlignConsecutiveAssignments: false
 AlignArrayOfStructures: Right
 AlignOperands: AlignAfterOperator
 PointerAlignment: Right
