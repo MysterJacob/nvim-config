@@ -3,62 +3,54 @@ local dap = require('dap')
 local dapui = require('dapui')
 local telescope = require('telescope')
 
-
 -- Text
-require("nvim-dap-virtual-text").setup()
+require("nvim-dap-virtual-text").setup({})
 -- Ui
 vim.api.nvim_set_hl(0, "red", { fg = "#ff1000" })
-vim.fn.sign_define('DapBreakpoint', { text = '⚫', texthl = 'red', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        "watches",
-        { id = "scopes", size = 0.5 },
-        { id = "repl",   size = 0.15 },
-      },
-      size = 30,
-      position = "left",
-    },
-    {
-      elements = {
-        "console",
-      },
-      size = 0.25,
-      position = "bottom",
-    },
-  },
-  controls = {
-    -- Requires Neovim nightly (or 0.8 when released)
-    enabled = true,
-    -- Display controls in this element
-    element = "repl",
-    icons = {
-      --             pause = "",
-      --             play = "",
-      --             step_into = "",
-      --             step_over = "",
-      --             step_out = "",
-      --             step_back = "",
-      --             run_last = "↻",
-      --             terminate = "□",
-    },
-  },
-})
--- telescope.load_extension("dap")
+vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'red', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
--- vscode-cpptools
-dap.adapters.cppdbg = {
-  id = "cppdbg",
-  type = "executable",
-  command = "/usr/bin/OpenDebugAD",
-}
+dapui.setup(
+  {
+    layouts = {
+      {
+        elements = {
+          "watches",
+          { id = "scopes", size = 0.5 },
+          { id = "repl",   size = 0.15 },
+        },
+        size = 30,
+        position = "left",
+      },
+      {
+        elements = {
+          "console",
+        },
+        size = 0.25,
+        position = "bottom",
+      },
+    },
+    controls = {
+      enabled = true,
+      element = "repl",
+      icons = {
+            pause = "⏸️",
+            play = "▶️",
+            step_into = "🔽",
+            step_over = "⏭️",
+            step_out = "🔼",
+            step_back = "◀️",
+            run_last = "⏹️",
+            terminate = "⏹️",
+      },
+    },
+  })
+
 -- codelldb
-dap.adapters.codelldb = {
+dap.adapters.lldb = {
   type = "server",
   port = "${port}",
   executable = {
-    command = "/usr/bin/codelldb",
+    command = "/usr/bin/lldb",
     args = { "--port", "${port}" },
   },
 }
@@ -108,23 +100,32 @@ end)
 -- vim.keymap.set("n", "<leader>dp", function()
 --     dap.pause()
 -- end)
--- vim.keymap.set("n", "<leader>dtc", function()
---     telescope.extensions.dap.commands({})
--- end)
+vim.keymap.set("n", "<leader>dtc", function()
+  telescope.extensions.dap.commands({})
+end)
 
+local function file_exists(name)
+  local f = io.open(name, "r")
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
 -- CPP
 dap.configurations.cpp = {
   {
     -- Change it to "cppdbg" if you have vscode-cpptools
-    type = "codelldb",
+    type = "lldb",
     request = "launch",
     program = function()
-      --          TODO Cmake
-      local makefilePresent = 0 == os.execute("(ls | grep -i makefile)")
+      local name = "filenotfound"
+      local makefilePresent = file_exists("makefile")
       if makefilePresent then
         vim.print("make debug")
-        os.execute("make debug")
-        return "debug"
+        os.execute("make debug > /dev/null 2>&1")
+        name = "debug"
       else
         local filetype = vim.bo.filetype
         local filename = vim.fn.expand("%")
@@ -134,8 +135,10 @@ dap.configurations.cpp = {
         else
           os.execute(string.format("g++ -g -o %s %s", basename, filename))
         end
-        return basename
+        name = basename
       end
+      require('nvim-tree.api').tree.close()
+      return name
     end,
     args = function()
       local argv = {}

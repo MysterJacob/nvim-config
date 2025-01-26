@@ -8,6 +8,7 @@ Plug('nvim-tree/nvim-web-devicons')
 Plug('nvim-tree/nvim-tree.lua')
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.8' })
+Plug('nvim-telescope/telescope-dap.nvim')
 
 Plug('neovim/nvim-lspconfig')
 Plug('williamboman/mason.nvim')

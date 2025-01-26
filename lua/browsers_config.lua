@@ -5,7 +5,8 @@ vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
-    width = 25,
+    width = 30,
+    side = 'right'
   },
   renderer = {
     group_empty = true,
@@ -14,6 +15,8 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
+
+Map("n", "<leader>b", ":NvimTreeToggle<CR>", { silent = true })
 
 local telescope = require('telescope')
 telescope.setup({
@@ -32,6 +35,7 @@ telescope.setup({
     sorting_strategy = "ascending",
   },
 })
+telescope.load_extension("dap")
 
 local opts = { silent = true }
 Map("n", "<leader>tf", ":Telescope find_files<CR>", opts)

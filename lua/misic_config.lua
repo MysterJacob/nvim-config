@@ -1,6 +1,5 @@
 require "map"
 
-Map("n", "<leader>b", ":NvimTreeToggle<CR>", { silent = true })
 -- markdown-preview
 vim.g.mkdp_page_title = '「${name}」'
 vim.g.mkdp_filetypes = { 'markdown' }
