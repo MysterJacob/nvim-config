@@ -4,6 +4,8 @@ vim.call('plug#begin')
 Plug('vim-airline/vim-airline')
 Plug('vim-airline/vim-airline-themes')
 
+Plug('tpope/vim-fugitive')
+
 Plug('nvim-tree/nvim-web-devicons')
 Plug('nvim-tree/nvim-tree.lua')
 Plug('nvim-lua/plenary.nvim')

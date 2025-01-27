@@ -41,7 +41,7 @@ local opts = { silent = true }
 Map("n", "<leader>tf", ":Telescope find_files<CR>", opts)
 Map("n", "<leader>tg", ":Telescope live_grep<CR>", opts)
 Map("n", "<leader>tt", ":Telescope help_tags<CR>", opts)
-Map("n", "<leader>tb", ":Telescope buffers initial_mode=normal<CR>", opts)
+Map("n", "<leader>v", ":Telescope buffers initial_mode=normal<CR>", opts)
 Map('n', '<leader>D', ":Telescope lsp_declarations initial_mode=normal<CR>", opts)
 Map('n', '<leader>d', ":Telescope lsp_definitions initial_mode=normal<CR>", opts)
 Map('n', '<leader>i', ":Telescope lsp_implementations initial_mode=normal<CR>", opts)

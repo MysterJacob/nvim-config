@@ -1,4 +1,5 @@
 require("plug_config")
+require("airline")
 require("mason_config")
 require("treesitter_config")
 require("cmp_config")

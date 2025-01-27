@@ -21,9 +21,6 @@ vim.o.background = "dark"
 vim.o.termguicolors = false
 
 vim.cmd([[
-"Vim airline
-let g:airline_section_error = ''
-let g:airline_theme='dark'
 set nofoldenable
 vnoremap < <gv
 vnoremap > >gv
