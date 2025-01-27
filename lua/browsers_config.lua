@@ -16,7 +16,10 @@ require("nvim-tree").setup({
   },
 })
 
-Map("n", "<leader>b", ":NvimTreeToggle<CR>", { silent = true })
+vim.keymap.set("n", "<leader>b", function()
+  require("nvim-tree.api").tree.toggle();
+  require('lualine').refresh()
+end)
 
 local telescope = require('telescope')
 telescope.setup({
@@ -49,7 +52,7 @@ Map("n", "<leader>tt", ":Telescope help_tags<CR>", opts)
 Map("n", "<leader>v", ":Telescope buffers initial_mode=normal<CR>", opts)
 Map('n', '<leader>D', ":Telescope lsp_declarations initial_mode=normal<CR>", opts)
 Map('n', '<leader>d', ":Telescope lsp_definitions initial_mode=normal<CR>", opts)
-Map('n', '<leader>i', ":Telescope lsp_implementations initial_mode=normal<CR>", opts)
+Map('n', '<leader>ti', ":Telescope lsp_implementations initial_mode=normal<CR>", opts)
 Map('n', '<leader>tr', ":Telescope lsp_references initial_mode=normal<CR>", opts)
 Map('n', '<leader>t[', ":Telescope diagnostics initial_mode=normal<CR>", opts)
 Map('n', '<leader>ts', ":Telescope lsp_document_symbols<CR>", opts)

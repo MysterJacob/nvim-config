@@ -1,8 +1,9 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
-Plug('vim-airline/vim-airline')
-Plug('vim-airline/vim-airline-themes')
+-- Plug('vim-airline/vim-airline')
+-- Plug('vim-airline/vim-airline-themes')
+Plug('nvim-lualine/lualine.nvim')
 
 Plug('tpope/vim-fugitive')
 

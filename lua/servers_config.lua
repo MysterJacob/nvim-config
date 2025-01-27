@@ -7,11 +7,6 @@ local function on_attach(ev, bfrn)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
---   vim.keymap.set('n', '<leader>D', vim.lsp.buf.declaration, opts)
---   vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, opts)
---   vim.keymap.set('n', '<leader>i', vim.lsp.buf.implementation, opts)
---   vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
-
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
   vim.keymap.set('n', '<leader>wl', function()
