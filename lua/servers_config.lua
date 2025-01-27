@@ -29,10 +29,21 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Diagnostic settings
 vim.diagnostic.config {
-  virtual_text = true,
+  virtual_text = {
+    source = "always",
+    prefix = '●',
+  },
+  float = {
+    severity_sort = true,
+    source = "if_many",
+
+  },
+  severity_sort = true,
   signs = false,
   underline = true,
 }
+
+-- Servers
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   'force',
   lsp_defaults.capabilities,
