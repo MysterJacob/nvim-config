@@ -17,24 +17,22 @@ dapui.setup(
     layouts = {
       {
         elements = {
-          "watches",
-          { id = "scopes", size = 0.5 },
-          { id = "repl",   size = 0.15 },
+          "scopes"
         },
-        size = 30,
-        position = "left",
+        size = 12,
+        position = "bottom",
       },
       {
         elements = {
           "console",
         },
         size = 0.25,
-        position = "bottom",
+        position = "left",
       },
     },
     controls = {
       enabled = true,
-      element = "repl",
+      element = "scopes",
       icons = {
 --             pause = "⏸️",
 --             play = "▶️",
@@ -57,42 +55,31 @@ dap.adapters.lldb = {
     args = { "--port", "${port}" },
   },
 }
--- Bindings
-vim.keymap.set('n', '<F9>',
+vim.keymap.set('n', '<leader>ds',
   function()
     dap.continue()
     vim.opt.mouse = "a"
     dapui.open()
   end, {})
--- Exit
-vim.keymap.set("n", "<F7>", function()
+vim.keymap.set("n", "<leader>dq", function()
   dap.terminate()
   dapui.close()
-  vim.cmd("sleep 50ms")
-  dap.repl.close()
   vim.opt.mouse = nil
 end)
--- Restart
-vim.keymap.set("n", "<F21>", function()
-  dap.terminate()
-  vim.cmd("sleep 50ms")
-  dap.repl.close()
-  dap.continue()
-end) -- Shift F9
-vim.keymap.set("n", "<leader>B", function()
-  dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+vim.keymap.set("n", "<leader>dB", function()
+  dap.set_breakpoint(vim.fn.input '[Condition] > ')
 end)
-vim.keymap.set("n", "<F8>", function()
+vim.keymap.set("n", "<leader>db", function()
   dap.toggle_breakpoint()
 end)
-vim.keymap.set("n", "<F20>", function()
-  dap.clear_breakpoints()
-end) -- SHIFT+F8
+vim.keymap.set("n", "<leader>de", function()
+  dapui.eval(vim.fn.input('[Expression] > '))
+end)
+vim.keymap.set("n", "<leader>dc", function()
+  dap.run_to_cursor()
+end)
 vim.keymap.set("n", "<F10>", function()
   dap.step_over()
-end)
-vim.keymap.set("n", "<leader>rc", function()
-  dap.run_to_cursor()
 end)
 vim.keymap.set("n", "<F11>", function()
   dap.step_into()
