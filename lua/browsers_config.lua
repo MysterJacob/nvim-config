@@ -34,6 +34,11 @@ telescope.setup({
     },
     sorting_strategy = "ascending",
   },
+  pickers = {
+    diagnostics = {
+      preview = false
+    }
+  }
 })
 telescope.load_extension("dap")
 
@@ -46,4 +51,5 @@ Map('n', '<leader>D', ":Telescope lsp_declarations initial_mode=normal<CR>", opt
 Map('n', '<leader>d', ":Telescope lsp_definitions initial_mode=normal<CR>", opts)
 Map('n', '<leader>i', ":Telescope lsp_implementations initial_mode=normal<CR>", opts)
 Map('n', '<leader>tr', ":Telescope lsp_references initial_mode=normal<CR>", opts)
-Map('n', '<leader>t[', ":Telescope diagnostics<CR><Esc>", opts)
+Map('n', '<leader>t[', ":Telescope diagnostics initial_mode=normal<CR>", opts)
+Map('n', '<leader>ts', ":Telescope lsp_document_symbols<CR>", opts)

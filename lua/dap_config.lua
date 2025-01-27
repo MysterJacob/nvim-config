@@ -4,7 +4,10 @@ local dapui = require('dapui')
 local telescope = require('telescope')
 
 -- Text
-require("nvim-dap-virtual-text").setup({})
+require("nvim-dap-virtual-text").setup({
+  commented = true,
+  virt_text_pos = 'eol'
+})
 -- Ui
 vim.api.nvim_set_hl(0, "red", { fg = "#ff1000" })
 vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'red', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
@@ -33,14 +36,14 @@ dapui.setup(
       enabled = true,
       element = "repl",
       icons = {
-            pause = "⏸️",
-            play = "▶️",
-            step_into = "🔽",
-            step_over = "⏭️",
-            step_out = "🔼",
-            step_back = "◀️",
-            run_last = "⏹️",
-            terminate = "⏹️",
+--             pause = "⏸️",
+--             play = "▶️",
+--             step_into = "🔽",
+--             step_over = "",
+--             step_out = "🔼",
+--             step_back = "◀️",
+--             run_last = "⏹️",
+--             terminate = "⏹️",
       },
     },
   })
@@ -100,7 +103,7 @@ end)
 -- vim.keymap.set("n", "<leader>dp", function()
 --     dap.pause()
 -- end)
-vim.keymap.set("n", "<leader>dtc", function()
+vim.keymap.set("n", "<leader>tc", function()
   telescope.extensions.dap.commands({})
 end)
 
