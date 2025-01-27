@@ -17,9 +17,10 @@ dapui.setup(
     layouts = {
       {
         elements = {
-          "scopes"
+          "scopes",
+          { id = "watches", size = 0.25 },
         },
-        size = 12,
+        size = 10,
         position = "bottom",
       },
       {
@@ -34,14 +35,14 @@ dapui.setup(
       enabled = true,
       element = "scopes",
       icons = {
---             pause = "⏸️",
---             play = "▶️",
---             step_into = "🔽",
---             step_over = "",
---             step_out = "🔼",
---             step_back = "◀️",
---             run_last = "⏹️",
---             terminate = "⏹️",
+        --             pause = "⏸️",
+        --             play = "▶️",
+        --             step_into = "🔽",
+        --             step_over = "",
+        --             step_out = "🔼",
+        --             step_back = "◀️",
+        --             run_last = "⏹️",
+        --             terminate = "⏹️",
       },
     },
   })

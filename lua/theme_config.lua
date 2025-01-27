@@ -16,6 +16,7 @@ theme.setup({
   },
   overrides = function(colors)   -- add/modify highlights
     return {
+      WinSeparator = { fg = "#54546f"}
       -- LineNr = { bg = colors.palette.sumiInk3 }
     }
   end,
