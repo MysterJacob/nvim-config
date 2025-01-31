@@ -18,7 +18,7 @@ dapui.setup(
       {
         elements = {
           "scopes",
-          { id = "console", size = 0.25 },
+          { id = "console", size = 0.4 },
         },
         size = 10,
         position = "bottom",
@@ -26,8 +26,9 @@ dapui.setup(
       {
         elements = {
           "watches",
+          { id = "repl", size = 0.7 },
         },
-        size = 0.25,
+        size = 0.4,
         position = "left",
       },
     },
