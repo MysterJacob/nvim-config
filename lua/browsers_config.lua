@@ -18,8 +18,26 @@ require("nvim-tree").setup({
 
 vim.keymap.set("n", "<leader>b", function()
   require("nvim-tree.api").tree.toggle();
-  require('lualine').refresh()
+  require('lualine').refresh();
 end)
+
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
+  pattern = 'NvimTree*',
+  callback = function()
+    local hl = vim.api.nvim_get_hl(0, { name = 'Cursor' })
+    vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hl, { blend = 100 }))
+    vim.opt.guicursor:append('a:Cursor/lCursor')
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufLeave', 'WinClosed' }, {
+  pattern = 'NvimTree*',
+  callback = function()
+    local hl = vim.api.nvim_get_hl(0, { name = 'Cursor' })
+    vim.api.nvim_set_hl(0, 'Cursor', vim.tbl_extend('force', hl, { blend = 0 }))
+    vim.opt.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
+  end,
+})
 
 local telescope = require('telescope')
 telescope.setup({

@@ -50,7 +50,6 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
   capabilities
 )
 lspconfig.clangd.setup {
-  --     cmd = {'clangd', '--query-driver=/usr/bin/g++'},
   capabilities = capabilities,
   on_attach = on_attach
 }
