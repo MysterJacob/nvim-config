@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'WinClosed' }, {
   end,
 })
 
+local actions = require('telescope.actions')
 local telescope = require('telescope')
 telescope.setup({
   defaults = {
@@ -54,6 +55,22 @@ telescope.setup({
       },
     },
     sorting_strategy = "ascending",
+    mappings = {
+      i = {
+        ["<CR>"] = function(prompt_bufnr)
+          actions.select_default(prompt_bufnr)
+
+          vim.cmd("normal! zt")
+        end,
+      },
+      n = {
+        ["<CR>"] = function(prompt_bufnr)
+          actions.select_default(prompt_bufnr)
+
+          vim.cmd("normal! zt")
+        end,
+      },
+    }
   },
   pickers = {
     diagnostics = {
