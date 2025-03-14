@@ -1,18 +1,16 @@
 ---
 BasedOnStyle: Google
-SpaceBeforeParens: Never
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: false
 AlignArrayOfStructures: Right
 AlignOperands: AlignAfterOperator
-PointerAlignment: Right
 AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 BreakArrays: false
 BreakBeforeBraces: Linux
 FixNamespaceComments: false
-InsertBraces: true
+# InsertBraces: true
+PointerAlignment: Right
+SpaceBeforeParens: Never
 SpaceBeforeParensOptions:
   AfterControlStatements: false
-  AfterPlacementOperator: false
 TabWidth: 2
+

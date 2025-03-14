@@ -1,8 +1,8 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
--- Plug('vim-airline/vim-airline')
--- Plug('vim-airline/vim-airline-themes')
+Plug('vim-airline/vim-airline')
+Plug('vim-airline/vim-airline-themes')
 Plug('nvim-lualine/lualine.nvim')
 
 Plug('tpope/vim-fugitive')
@@ -42,7 +42,8 @@ Plug('windwp/nvim-autopairs')
 Plug('windwp/nvim-ts-autotag')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('KarimElghamry/vim-auto-comment')
--- themes
+
+
 Plug('chriskempson/base16-vim')
 Plug("ellisonleao/gruvbox.nvim")
 Plug("folke/tokyonight.nvim")

@@ -9,5 +9,6 @@ require("mason-lspconfig").setup({
     "html",
     "vuels",
     "cssls",
+    "ruff"
   }
 })
