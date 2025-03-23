@@ -18,6 +18,7 @@ Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('pangloss/vim-javascript')
 Plug('Civitasv/cmake-tools.nvim')
+Plug('mattn/emmet-vim')
 
 Plug('mfussenegger/nvim-dap')
 Plug('theHamsta/nvim-dap-virtual-text')

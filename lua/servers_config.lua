@@ -26,6 +26,7 @@ end
 local lspconfig = require("lspconfig")
 local lsp_defaults = lspconfig.util.default_config
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true;
 
 -- Diagnostic settings
 vim.diagnostic.config {
@@ -43,58 +44,68 @@ vim.diagnostic.config {
   underline = true,
 }
 
+-- Servers
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   'force',
   lsp_defaults.capabilities,
   capabilities
 )
-
--- Servers
 lspconfig.clangd.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
-
-lspconfig.ruff.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  init_options = {
-    settings = {
-      configurationPreference = "filesystemFirst",
-      lineLength = 80,
-      showSyntaxErrors = false,
-    },
-    configuration = {
-      lint = {
-        unfixable = { "F401" },
-        ["extend-select"] = { "TID251" },
-        ["flake8-tidy-imports"] = {
-          ["banned-api"] = {
-            ["typing.TypedDict"] = {
-              msg = "Use `typing_extensions.TypedDict` instead"
-            }
-          }
-        }
-      },
-      format = {
-        ["quote-style"] = "double"
-      }
-    }
-  }
-}
 lspconfig.pyright.setup {
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = on_attach
 }
--- 
-lspconfig.biome.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
+lspconfig.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+  on_attach = on_attach
 }
 lspconfig.html.setup {
   capabilities = capabilities,
   on_attach = on_attach
+}
+lspconfig.cssls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach
+}
+lspconfig.ts_ls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  single_file_support = true,
+}
+lspconfig.eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+lspconfig.biome.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
 }
 lspconfig.vuels.setup {
   capabilities = capabilities,
@@ -136,14 +147,6 @@ lspconfig.vuels.setup {
     }
   }
 }
-lspconfig.cssls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach
-}
-lspconfig.ts_ls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
 
 lspconfig.rust_analyzer.setup {
   settings = {
@@ -160,26 +163,5 @@ lspconfig.rust_analyzer.setup {
     }
   },
   capabilities = capabilities,
-  on_attach = on_attach
-}
-
-lspconfig.lua_ls.setup {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
   on_attach = on_attach
 }
