@@ -44,20 +44,69 @@ vim.diagnostic.config {
   underline = true,
 }
 
--- Servers
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   'force',
   lsp_defaults.capabilities,
   capabilities
 )
+
+-- Servers
+
 lspconfig.clangd.setup {
   capabilities = capabilities,
   on_attach = on_attach
+}
+
+lspconfig.rust_analyzer.setup {
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true,
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      }
+    }
+  },
+  capabilities = capabilities,
+  on_attach = on_attach
+}
+
+lspconfig.ruff.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  init_options = {
+    settings = {
+      configurationPreference = "filesystemFirst",
+      lineLength = 80,
+      showSyntaxErrors = false,
+    },
+    configuration = {
+      lint = {
+        unfixable = { "F401" },
+        ["extend-select"] = { "TID251" },
+        ["flake8-tidy-imports"] = {
+          ["banned-api"] = {
+            ["typing.TypedDict"] = {
+              msg = "Use `typing_extensions.TypedDict` instead"
+            }
+          }
+        }
+      },
+      format = {
+        ["quote-style"] = "double"
+      }
+    }
+  }
 }
 lspconfig.pyright.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
+
 lspconfig.lua_ls.setup {
   settings = {
     Lua = {
@@ -81,6 +130,12 @@ lspconfig.lua_ls.setup {
   },
   on_attach = on_attach
 }
+
+lspconfig.biome.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
+}
 lspconfig.html.setup {
   capabilities = capabilities,
   on_attach = on_attach
@@ -88,11 +143,6 @@ lspconfig.html.setup {
 lspconfig.cssls.setup {
   capabilities = capabilities,
   on_attach = on_attach
-}
-lspconfig.ts_ls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  single_file_support = true,
 }
 lspconfig.eslint.setup({
   on_attach = function(client, bufnr)
@@ -102,10 +152,10 @@ lspconfig.eslint.setup({
     })
   end,
 })
-lspconfig.biome.setup {
+lspconfig.ts_ls.setup {
   capabilities = capabilities,
   on_attach = on_attach,
-  filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
+  single_file_support = true,
 }
 lspconfig.vuels.setup {
   capabilities = capabilities,
@@ -146,22 +196,4 @@ lspconfig.vuels.setup {
       }
     }
   }
-}
-
-lspconfig.rust_analyzer.setup {
-  settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = true,
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-      },
-      procMacro = {
-        enable = true,
-      }
-    }
-  },
-  capabilities = capabilities,
-  on_attach = on_attach
 }
