@@ -24,7 +24,6 @@ vim.cmd([[
 set nofoldenable
 vnoremap < <gv
 vnoremap > >gv
-colorscheme kanagawa
 set signcolumn=auto
 hi! link SignColumn Normal
 ]])

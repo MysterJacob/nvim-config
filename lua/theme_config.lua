@@ -16,9 +16,6 @@ theme.setup({
   },
   overrides = function(colors) -- add/modify highlights
     return {
-      WinSeparator = { fg = "#54546f" },
-      NvimTreeCursorLine = { bg = "#463636"}
-      -- LineNr = { bg = colors.palette.sumiInk3 }
     }
   end,
   theme = "wave",  -- Load "wave" theme when 'background' option is not set
@@ -57,3 +54,13 @@ require("transparent").setup({ -- Optional, you don't have to run setup.
   }, -- table: groups you don't want to clear
 })
 vim.g.transparent_enabled = true
+vim.cmd([[
+  function! PatchHighlights() abort
+    highlight WinSeparator guifg=#54546f guibg=None
+    highlight NvimTreeCursorLine  guibg=#463636
+  endfunction
+
+  autocmd ColorScheme * call PatchHighlights()
+
+  colorscheme kanagawa
+]])
