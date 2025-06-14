@@ -4,6 +4,7 @@ require "map"
 vim.g.mkdp_page_title = '「${name}」'
 vim.g.mkdp_filetypes = { 'markdown' }
 vim.g.mkdp_theme = 'dark'
+-- autocomment
 vim.g.default_inline_comment = '#'
 vim.g.inline_comment_dict = {
   ["//"] = { "js", "ts", "cpp", "c", "h", "hpp", "dart" },
@@ -19,7 +20,7 @@ Map("i", "<C-/>", ":AutoInlineComment<CR>", { silent = true })
 -- Auto pairs
 require('nvim-ts-autotag').setup()
 require("nvim-autopairs").setup()
--- Github
+-- git
 require('gitsigns').setup({
   current_line_blame = true,
   signcolumn = false,
@@ -32,7 +33,7 @@ require('gitsigns').setup({
     use_focus = true,
   },
 })
--- Scope
+-- scope lines
 require("ibl").setup({
   indent = {
     char = "▏",

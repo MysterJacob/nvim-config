@@ -16,6 +16,7 @@ Plug('vim-airline/vim-airline-themes')
 -- SIGNATURE AND LSP
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('williamboman/mason.nvim')
+Plug('j-hui/fidget.nvim')
 Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-buffer')
@@ -43,6 +44,9 @@ Plug("lukas-reineke/indent-blankline.nvim")
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('KarimElghamry/vim-auto-comment')
 Plug('tpope/vim-fugitive')
+Plug('tpope/vim-surround')
+Plug('kevinhwang91/nvim-ufo')
+Plug('kevinhwang91/promise-async')
 -- DEBUGGING
 Plug('mfussenegger/nvim-dap')
 Plug('mfussenegger/nvim-dap-python')
@@ -50,6 +54,5 @@ Plug('rcarriga/nvim-dap-ui')
 Plug('theHamsta/nvim-dap-virtual-text')
 --OTHER
 Plug('nvim-neotest/nvim-nio')
-
 
 vim.call('plug#end')

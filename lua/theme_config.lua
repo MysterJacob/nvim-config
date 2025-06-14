@@ -24,13 +24,14 @@ theme.setup({
     light = "lotus"
   },
 })
+
 require("transparent").setup({ -- Optional, you don't have to run setup.
   groups = {                   -- table: default groups
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
     'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
-    'EndOfBuffer',
+    'EndOfBuffer', 'FoldColumn'
   },
   extra_groups = {
     "NormalFloat",    -- plugins which have float panel such as Lazy, Mason, LspInfo
@@ -47,17 +48,24 @@ require("transparent").setup({ -- Optional, you don't have to run setup.
     "TelescopePreviewTitle",
     "TelescopePreviewBorder",
     "TelescopeResultsTitle",
-    "TelescopeResultsBorder"
+    "TelescopeResultsBorder",
+    "UfoPreviewSbar",
+    "UfoPreviewThumb",
+    "UfoPreviewWinBar",
+    "UfoPreviewCursorLine",
+    "UfoFoldedEllipsis",
+    "UfoCursorFoldedLine",
   }, -- table: additional groups that should be cleared
   exclude_groups = {
     --     "CursorLine"
   }, -- table: groups you don't want to clear
 })
 vim.g.transparent_enabled = true
+
 vim.cmd([[
   function! PatchHighlights() abort
-    highlight WinSeparator guifg=#54546f guibg=None
-    highlight NvimTreeCursorLine  guibg=#463636
+    hi WinSeparator guifg=#54546f guibg=None
+    hi NvimTreeCursorLine  guibg=#463636
   endfunction
 
   autocmd ColorScheme * call PatchHighlights()

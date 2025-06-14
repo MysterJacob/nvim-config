@@ -23,10 +23,16 @@ local function on_attach(ev, bfrn)
   -- Buffer local mappings.
   --     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
+
 local lspconfig = require("lspconfig")
 local lsp_defaults = lspconfig.util.default_config
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true;
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 
 -- Diagnostic settings
 vim.diagnostic.config {
