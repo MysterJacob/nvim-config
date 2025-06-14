@@ -18,15 +18,30 @@ cmp.setup({
   },
   sorting = {
     comparators = {
-      cmp.config.compare.offset,
+      function(entry1, entry2)
+        local kind1 = entry1:get_kind()
+        local kind2 = entry2:get_kind()
+        if kind1 == kind2 then
+          return nil
+        end
+        if kind1 == 20 then
+          return true;
+        elseif kind2 == 20 then
+          return false;
+        end
+
+        return nil
+      end,
       cmp.config.compare.exact,
+      cmp.config.compare.offset,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.kind,
       cmp.config.compare.score,
       cmp.config.compare.recently_used,
-      cmp.config.compare.kind,
     }
   },
   formatting = {
-    fields = { 'menu', 'abbr', 'kind' },
+    fields = { 'abbr', 'menu', 'kind' },
     format = function(entry, item)
       local menu_icon = {
         nvim_lsp = '(lsp)',
