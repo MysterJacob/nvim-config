@@ -1,6 +1,22 @@
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
+local types = require('cmp.types.lsp').CompletionItemKind
+
+function customComparator(entry1, entry2)
+  local kind1 = entry1:get_kind()
+  local kind2 = entry2:get_kind()
+  local sortedTypes = { types.EnumMember, types.Constant }
+
+  for index, value in ipairs(sortedTypes) do
+    if kind1 == value and kind2 ~= value then
+      return true;
+    elseif kind2 == value and kind1 ~= value then
+      return false;
+    end
+  end
+  return nil;
+end
 
 cmp.setup({
   snippet = {
@@ -18,25 +34,12 @@ cmp.setup({
   },
   sorting = {
     comparators = {
-      function(entry1, entry2)
-        local kind1 = entry1:get_kind()
-        local kind2 = entry2:get_kind()
-        if kind1 == kind2 then
-          return nil
-        end
-        if kind1 == 20 then
-          return true;
-        elseif kind2 == 20 then
-          return false;
-        end
-
-        return nil
-      end,
-      cmp.config.compare.score,
+      customComparator,
       cmp.config.compare.exact,
+      cmp.config.compare.score,
       cmp.config.compare.offset,
-      cmp.config.compare.sort_text,
       cmp.config.compare.kind,
+      require("cmp-under-comparator").under,
       cmp.config.compare.recently_used,
     }
   },
