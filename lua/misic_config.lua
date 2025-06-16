@@ -19,7 +19,14 @@ Map("i", "<C-/>", ":AutoInlineComment<CR>", { silent = true })
 
 -- Auto pairs
 require('nvim-ts-autotag').setup()
-require("nvim-autopairs").setup()
+
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
+require('nvim-autopairs').setup()
 -- git
 require('gitsigns').setup({
   current_line_blame = true,

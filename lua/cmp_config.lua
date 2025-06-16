@@ -32,11 +32,11 @@ cmp.setup({
 
         return nil
       end,
+      cmp.config.compare.score,
       cmp.config.compare.exact,
       cmp.config.compare.offset,
       cmp.config.compare.sort_text,
       cmp.config.compare.kind,
-      cmp.config.compare.score,
       cmp.config.compare.recently_used,
     }
   },
