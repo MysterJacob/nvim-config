@@ -55,5 +55,6 @@ Plug('rcarriga/nvim-dap-ui')
 Plug('theHamsta/nvim-dap-virtual-text')
 --OTHER
 Plug('nvim-neotest/nvim-nio')
+Plug('ahmedkhalf/project.nvim')
 
 vim.call('plug#end')

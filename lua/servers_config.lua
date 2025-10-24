@@ -24,8 +24,6 @@ local function on_attach(ev, bfrn)
   --     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
-local lspconfig = require("lspconfig")
-local lsp_defaults = lspconfig.util.default_config
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true;
@@ -50,20 +48,20 @@ vim.diagnostic.config {
   underline = true,
 }
 
-lsp_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lsp_defaults.capabilities,
-  capabilities
-)
-
+local function setupServer(name, config)
+  vim.lsp.config(name, config)
+  vim.lsp.enable(name, config)
+end
 -- Servers
-
-lspconfig.clangd.setup {
+setupServer("clangd", {
   capabilities = capabilities,
-  on_attach = on_attach
-}
+  on_attach = on_attach,
+  settings = {
+    root_dir = vim.loop.cwd(),
+  }
+})
 
-lspconfig.rust_analyzer.setup {
+setupServer("rust_analyzer", {
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
@@ -79,9 +77,9 @@ lspconfig.rust_analyzer.setup {
   },
   capabilities = capabilities,
   on_attach = on_attach
-}
+})
 
-lspconfig.ruff.setup {
+setupServer("ruff", {
   capabilities = capabilities,
   on_attach = on_attach,
   init_options = {
@@ -107,13 +105,14 @@ lspconfig.ruff.setup {
       }
     }
   }
-}
-lspconfig.pyright.setup {
+})
+
+setupServer("pyright", {
   capabilities = capabilities,
   on_attach = on_attach
-}
+})
 
-lspconfig.lua_ls.setup {
+setupServer("lua_ls", {
   settings = {
     Lua = {
       runtime = {
@@ -135,22 +134,25 @@ lspconfig.lua_ls.setup {
     },
   },
   on_attach = on_attach
-}
+})
 
-lspconfig.biome.setup {
+setupServer("biome", {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
-}
-lspconfig.html.setup {
+})
+
+setupServer("html", {
   capabilities = capabilities,
   on_attach = on_attach
-}
-lspconfig.cssls.setup {
+})
+
+setupServer("cssls", {
   capabilities = capabilities,
   on_attach = on_attach
-}
-lspconfig.eslint.setup({
+})
+
+setupServer("eslint", {
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
@@ -158,12 +160,14 @@ lspconfig.eslint.setup({
     })
   end,
 })
-lspconfig.ts_ls.setup {
+
+setupServer("ts_ls", {
   capabilities = capabilities,
   on_attach = on_attach,
   single_file_support = true,
-}
-lspconfig.vuels.setup {
+})
+
+setupServer("vuels", {
   capabilities = capabilities,
   on_attach = on_attach,
   config = {
@@ -202,4 +206,4 @@ lspconfig.vuels.setup {
       }
     }
   }
-}
+})
