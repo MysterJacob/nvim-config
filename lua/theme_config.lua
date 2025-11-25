@@ -64,8 +64,8 @@ vim.g.transparent_enabled = true
 
 vim.cmd([[
   function! PatchHighlights() abort
-    hi WinSeparator guifg=#54546f guibg=None
-    hi NvimTreeCursorLine  guibg=#463636
+     hi WinSeparator guifg=#54546f guibg=None
+     hi NvimTreeCursorLine guibg=#463636
   endfunction
 
   autocmd ColorScheme * call PatchHighlights()

@@ -2,6 +2,7 @@ require "map"
 local dap = require('dap')
 local dapui = require('dapui')
 local telescope = require('telescope')
+local tree = require("nvim-tree.api")
 
 -- Text
 require("nvim-dap-virtual-text").setup({
@@ -59,9 +60,10 @@ dap.adapters.lldb = {
 }
 vim.keymap.set('n', '<leader>ds',
   function()
-    dap.continue()
     vim.opt.mouse = "a"
+    tree.tree.close()
     dapui.open()
+    dap.continue()
   end, {})
 vim.keymap.set("n", "<leader>dq", function()
   dap.terminate()
@@ -142,8 +144,7 @@ dap.configurations.cpp = {
       return argv
     end,
     cwd = "${workspaceFolder}",
-    -- Uncomment if you want to stop at main
-    -- stopAtEntry = true,
+--     stopAtEntry = true,
     MIMode = "gdb",
     miDebuggerPath = "/usr/bin/gdb",
     setupCommands = {

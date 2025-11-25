@@ -3,8 +3,14 @@ local function on_attach(ev, bfrn)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '[d',
+    (function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end))
+  vim.keymap.set('n', ']d',
+    (function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end))
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -19,9 +25,6 @@ local function on_attach(ev, bfrn)
     vim.lsp.buf.format { async = true }
   end, opts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-
-  -- Buffer local mappings.
-  --     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -34,14 +37,10 @@ capabilities.textDocument.foldingRange = {
 
 -- Diagnostic settings
 vim.diagnostic.config {
-  virtual_text = {
-    source = "always",
-    prefix = '●',
-  },
+  virtual_text = false,
   float = {
     severity_sort = true,
     source = "if_many",
-
   },
   severity_sort = true,
   signs = false,
@@ -109,7 +108,18 @@ setupServer("ruff", {
 
 setupServer("pyright", {
   capabilities = capabilities,
-  on_attach = on_attach
+  on_attach = on_attach,
+  settings = {
+    root_dir = vim.loop.cwd(),
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "openFilesOnly",
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = false
+      }
+    }
+  }
 })
 
 setupServer("lua_ls", {
