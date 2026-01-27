@@ -10,6 +10,7 @@ require("mason-lspconfig").setup({
     "html",
     "vuels",
     "cssls",
-    "ruff"
+    "ruff",
+    "glsl_analyzer"
   }
 })

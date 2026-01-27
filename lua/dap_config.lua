@@ -60,7 +60,6 @@ dap.adapters.lldb = {
 }
 vim.keymap.set('n', '<leader>ds',
   function()
-    vim.opt.mouse = "a"
     tree.tree.close()
     dapui.open()
     dap.continue()
@@ -68,7 +67,6 @@ vim.keymap.set('n', '<leader>ds',
 vim.keymap.set("n", "<leader>dq", function()
   dap.terminate()
   dapui.close()
-  vim.opt.mouse = nil
 end)
 vim.keymap.set("n", "<leader>dB", function()
   dap.set_breakpoint(vim.fn.input '[Condition] > ')
@@ -91,9 +89,6 @@ end)
 vim.keymap.set("n", "<F12>", function()
   dap.step_out()
 end)
--- vim.keymap.set("n", "<leader>dp", function()
---     dap.pause()
--- end)
 vim.keymap.set("n", "<leader>tc", function()
   telescope.extensions.dap.commands({})
 end)
@@ -144,7 +139,7 @@ dap.configurations.cpp = {
       return argv
     end,
     cwd = "${workspaceFolder}",
---     stopAtEntry = true,
+    --     stopAtEntry = true,
     MIMode = "gdb",
     miDebuggerPath = "/usr/bin/gdb",
     setupCommands = {

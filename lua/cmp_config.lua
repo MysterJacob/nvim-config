@@ -3,12 +3,12 @@ local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local types = require('cmp.types.lsp').CompletionItemKind
 
-function customComparator(entry1, entry2)
+local function customComparator(entry1, entry2)
   local kind1 = entry1:get_kind()
   local kind2 = entry2:get_kind()
   local sortedTypes = { types.EnumMember, types.Constant }
 
-  for index, value in ipairs(sortedTypes) do
+  for _, value in ipairs(sortedTypes) do
     if kind1 == value and kind2 ~= value then
       return true;
     elseif kind2 == value and kind1 ~= value then

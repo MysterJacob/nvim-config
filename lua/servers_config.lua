@@ -59,6 +59,13 @@ setupServer("clangd", {
     root_dir = vim.loop.cwd(),
   }
 })
+setupServer("glsl_analyzer", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    root_dir = vim.loop.cwd(),
+  }
+})
 
 setupServer("rust_analyzer", {
   settings = {

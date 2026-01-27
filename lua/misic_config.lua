@@ -4,10 +4,11 @@ require "map"
 vim.g.mkdp_page_title = '「${name}」'
 vim.g.mkdp_filetypes = { 'markdown' }
 vim.g.mkdp_theme = 'dark'
+
 -- autocomment
 vim.g.default_inline_comment = '#'
 vim.g.inline_comment_dict = {
-  ["//"] = { "js", "ts", "cpp", "c", "h", "hpp", "dart" },
+  ["//"] = { "js", "ts", "cpp", "c", "h", "hpp", "dart", "vect", "frag" },
   ["#"] = { 'py', 'sh' },
   ["--"] = { 'lua', 'sql' },
   ["\""] = { 'vim' },
@@ -26,7 +27,7 @@ cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done()
 )
-require('nvim-autopairs').setup()
+-- require('nvim-autopairs').setup()
 -- git
 require('gitsigns').setup({
   current_line_blame = true,
