@@ -1,5 +1,6 @@
 require "map"
 
+
 -- markdown-preview
 vim.g.mkdp_page_title = '「${name}」'
 vim.g.mkdp_filetypes = { 'markdown' }

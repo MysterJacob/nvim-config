@@ -6,7 +6,7 @@ local types = require('cmp.types.lsp').CompletionItemKind
 local function customComparator(entry1, entry2)
   local kind1 = entry1:get_kind()
   local kind2 = entry2:get_kind()
-  local sortedTypes = { types.EnumMember, types.Constant }
+  local sortedTypes = { types.EnumMember, types.Constant, types.Function }
 
   for _, value in ipairs(sortedTypes) do
     if kind1 == value and kind2 ~= value then

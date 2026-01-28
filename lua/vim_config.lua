@@ -17,12 +17,14 @@ vim.opt.shiftwidth = 2
 
 vim.opt.foldlevel = 5
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.wrap = false
 vim.opt.swapfile = false
 vim.o.background = "dark"
 
 vim.o.termguicolors = false
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.cmd([[
 set nofoldenable

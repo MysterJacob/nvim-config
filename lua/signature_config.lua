@@ -25,7 +25,7 @@ cfg = {
     border = "none"
   },
 
-  always_trigger = false,
+  always_trigger = true,
 
   auto_close_after = nil,
   extra_trigger_chars = {},

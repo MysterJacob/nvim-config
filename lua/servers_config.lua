@@ -20,7 +20,7 @@ local function on_attach(ev, bfrn)
   end, opts)
 
   vim.keymap.set('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-  vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
   vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
     vim.lsp.buf.format { async = true }
   end, opts)
