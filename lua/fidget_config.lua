@@ -3,7 +3,7 @@ require("fidget").setup(
     -- Options related to LSP progress subsystem
     progress = {
       poll_rate = 0,                -- How and when to poll for progress messages
-      suppress_on_insert = true,   -- Suppress new messages while in insert mode
+      suppress_on_insert = true,    -- Suppress new messages while in insert mode
       ignore_done_already = false,  -- Ignore new tasks that are already complete
       ignore_empty_message = false, -- Ignore new tasks that don't contain a message
       clear_on_detach =             -- Clear notification group when LSP server detaches
@@ -79,7 +79,7 @@ require("fidget").setup(
       -- Options related to the notification window and buffer
       window = {
         normal_hl = "NormalFloat", -- Base highlight group in the notification window
-        winblend = 0,            -- Background color opacity in the notification window
+        winblend = 0,              -- Background color opacity in the notification window
         border = "none",           -- Border around the notification window
         zindex = 45,               -- Stacking priority of the notification window
         max_width = 0,             -- Maximum width of the notification window

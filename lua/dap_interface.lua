@@ -14,40 +14,39 @@ require("nvim-dap-virtual-text").setup({
 vim.api.nvim_set_hl(0, "red", { fg = "#ff1000" })
 vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'red', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
+local isDapRunning = false;
+vim.api.nvim_create_autocmd({ "VimResized", "BufEnter" }, {
+  callback = function()
+    if package.loaded["dapui"] and isDapRunning then
+      dapui.open({ reset = true });
+    end
+  end,
+})
+
 dapui.setup(
   {
     layouts = {
       {
+        position = "left",
+        size = 50,
         elements = {
-          "scopes",
-          { id = "console", size = 0.4 },
-        },
-        size = 10,
-        position = "bottom",
+          { id = "repl" },
+          { id = "watches", size = 0.4 },
+          { id = "scopes",  size = 0.4 },
+        }
       },
       {
+        position = "bottom",
+        size = 0.2,
         elements = {
-          "watches",
-          { id = "repl", size = 0.7 },
-        },
-        size = 0.4,
-        position = "left",
-      },
+          { id = "console" },
+        }
+      }
     },
     controls = {
       enabled = true,
-      element = "scopes",
-      icons = {
-        --             pause = "⏸️",
-        --             play = "▶️",
-        --             step_into = "🔽",
-        --             step_over = "",
-        --             step_out = "🔼",
-        --             step_back = "◀️",
-        --             run_last = "⏹️",
-        --             terminate = "⏹️",
-      },
-    },
+      element = "scopes"
+    }
   })
 
 -- codelldb
@@ -64,10 +63,14 @@ vim.keymap.set('n', '<leader>ds',
     tree.tree.close()
     dapui.open()
     dap.continue()
+    isDapRunning = true;
+    vim.opt.mouse = "a"
   end, {})
 vim.keymap.set("n", "<leader>dq", function()
   dap.terminate()
   dapui.close()
+  isDapRunning = false;
+  vim.opt.mouse = nil
 end)
 vim.keymap.set("n", "<leader>dB", function()
   dap.set_breakpoint(vim.fn.input '[Condition] > ')
@@ -103,10 +106,12 @@ local function file_exists(name)
     return false
   end
 end
+
 -- CPP
 dap.configurations.cpp = {
   {
     -- Change it to "cppdbg" if you have vscode-cpptools
+    name = "cpp",
     type = "lldb",
     request = "launch",
     program = function()
@@ -159,5 +164,6 @@ dap.configurations.c = dap.configurations.cpp
 -- local python_path = table.concat({ vim.fn.stdpath('data'), 'mason', 'packages', 'debugpy', 'venv', 'bin', 'python' }, '/')
 --     :gsub('//+', '/')
 require('dap-python').setup('python3')
-local telescope = require('telescope')
+
 telescope.load_extension("dap")
+

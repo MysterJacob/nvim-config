@@ -8,6 +8,8 @@ require("nvim-tree").setup({
     width = 30,
     side = 'right',
     signcolumn = 'no',
+    adaptive_size = false,
+    preserve_window_proportions = true,
   },
   renderer = {
     group_empty = true,
