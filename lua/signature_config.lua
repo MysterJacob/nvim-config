@@ -1,12 +1,12 @@
-cfg = {
+local cfg = {
   debug = false,
   log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log",
   verbose = false,
   bind = true,
   doc_lines = 0,
-  max_height = 4,
+  max_height = 5,
   max_width = function()
-    return vim.api.nvim_win_get_width(0) * 0.8
+    return math.floor(vim.api.nvim_win_get_width(0) * 0.8)
   end,
   wrap = true,
   floating_window = true,
@@ -22,7 +22,7 @@ cfg = {
   hint_inline = function() return false end,
   hi_parameter = "LspSignatureActiveParameter",
   handler_opts = {
-    border = "none"
+    border = "shadow"
   },
 
   always_trigger = true,
@@ -34,7 +34,7 @@ cfg = {
   padding = '',
   transparency = nil,
   shadow_blend = 36,
-  shadow_guibg = 'Black',
+  shadow_guibg = '#101010',
   timer_interval = 200,
   toggle_key = nil,
   toggle_key_flip_floatwin_setting = false,

@@ -9,6 +9,7 @@ require("nvim-dap-virtual-text").setup({
   commented = true,
   virt_text_pos = 'eol'
 })
+
 -- Ui
 vim.api.nvim_set_hl(0, "red", { fg = "#ff1000" })
 vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'red', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
@@ -155,6 +156,8 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 
 -- Python
-local python_path = table.concat({ vim.fn.stdpath('data'), 'mason', 'packages', 'debugpy', 'venv', 'bin', 'python' }, '/')
-    :gsub('//+', '/')
-require('dap-python').setup(python_path)
+-- local python_path = table.concat({ vim.fn.stdpath('data'), 'mason', 'packages', 'debugpy', 'venv', 'bin', 'python' }, '/')
+--     :gsub('//+', '/')
+require('dap-python').setup('python3')
+local telescope = require('telescope')
+telescope.load_extension("dap")

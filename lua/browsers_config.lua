@@ -1,11 +1,13 @@
 require "map"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     width = 30,
     side = 'right',
+    signcolumn = 'no',
   },
   renderer = {
     group_empty = true,
@@ -20,9 +22,10 @@ require("nvim-tree").setup({
   },
 })
 
+local lualine = require("lualine");
 vim.keymap.set("n", "<leader>b", function()
   require("nvim-tree.api").tree.toggle();
-  require('lualine').refresh();
+  lualine.refresh();
 end)
 
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
@@ -82,7 +85,6 @@ telescope.setup({
     }
   }
 })
-telescope.load_extension("dap")
 
 local opts = { silent = true }
 Map("n", "<leader>tf", ":Telescope find_files<CR>", opts)

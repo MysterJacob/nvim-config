@@ -59,8 +59,10 @@ Plug('mfussenegger/nvim-dap')
 Plug('mfussenegger/nvim-dap-python')
 Plug('rcarriga/nvim-dap-ui')
 Plug('theHamsta/nvim-dap-virtual-text')
+-- Plug('puremourning/vimspector')
 --OTHER
 Plug('nvim-neotest/nvim-nio')
 Plug('ahmedkhalf/project.nvim')
+Plug('rcarriga/nvim-notify')
 
 vim.call('plug#end')
