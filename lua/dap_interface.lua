@@ -28,11 +28,11 @@ dapui.setup(
     layouts = {
       {
         position = "left",
-        size = 50,
+        size = 55,
         elements = {
           { id = "repl" },
-          { id = "watches", size = 0.4 },
-          { id = "scopes",  size = 0.4 },
+          { id = "watches", size = 0.2},
+          { id = "scopes",  size = 0.3 },
         }
       },
       {
@@ -166,4 +166,3 @@ dap.configurations.c = dap.configurations.cpp
 require('dap-python').setup('python3')
 
 telescope.load_extension("dap")
-

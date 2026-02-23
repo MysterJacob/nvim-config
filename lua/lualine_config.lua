@@ -2,34 +2,32 @@ require('lualine').setup({
   options = {
     icons_enabled = true,
     theme = 'material',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     disabled_filetypes = {
-      'packer', 'NvimTree'
+      'packer', 'NvimTree', 'notfiy',
     },
-    ignore_focus = {'NvimTree'},
+    ignore_focus = { 'NvimTree' },
     always_divide_middle = true,
     always_show_tabline = true,
     globalstatus = true,
     refresh = {
-      statusline = 100,
-      tabline = 100,
-      winbar = 100,
+      statusline = 1000,
     }
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },
@@ -38,3 +36,12 @@ require('lualine').setup({
   inactive_winbar = {},
   extensions = {}
 })
+-- require('lualine').setup({
+--   options = {
+--     theme = 'auto',
+--     globalstatus = true,
+--     refresh = { statusline = 0 }
+--   },
+--   sections = { lualine_a = {'mode'}, lualine_b = {'branch'}, lualine_c = {'filename'} }
+-- })
+-- 

@@ -15,9 +15,6 @@ Plug("sainnhe/sonokai")
 Plug("akinsho/horizon.nvim")
 -- BAR
 Plug('nvim-lualine/lualine.nvim')
-Plug('vim-airline/vim-airline')
-Plug('vim-airline/vim-airline-themes')
-
 -- SIGNATURE AND LSP
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('williamboman/mason.nvim')

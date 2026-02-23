@@ -7,6 +7,6 @@ require('nvim-treesitter.configs').setup {
   indent = {
     enable = true
   },
-  ensure_installed = 'all'
+--   ensure_installed = 'all'
 }
 require("nvim-ts-autotag").setup();
