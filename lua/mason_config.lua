@@ -11,6 +11,7 @@ require("mason-lspconfig").setup({
     "vuels",
     "cssls",
     "ruff",
-    "glsl_analyzer"
+    "glsl_analyzer",
+    "kotlin_language_server"
   }
 })

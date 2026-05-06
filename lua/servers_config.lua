@@ -117,12 +117,11 @@ setupServer("pyright", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
-    root_dir = vim.loop.cwd(),
     python = {
       analysis = {
-        autoSearchPaths = true,
+        autoSearchPaths = false,
         diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
+        useLibraryCodeForTypes = false,
         typeCheckingMode = false
       }
     }
@@ -153,11 +152,6 @@ setupServer("lua_ls", {
   on_attach = on_attach
 })
 
-setupServer("biome", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = { "javascript", "javascriptreact", "json", "jsonc", "typescript", "typescript.tsx", "typescriptreact", "astro", "svelte", "vue", "css" },
-})
 
 setupServer("html", {
   capabilities = capabilities,
@@ -224,3 +218,5 @@ setupServer("vuels", {
     }
   }
 })
+
+setupServer("kotlin_language_server", {});

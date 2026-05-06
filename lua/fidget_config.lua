@@ -88,18 +88,11 @@ require("fidget").setup(
         y_padding = 0,             -- Padding from bottom edge of window boundary
         align = "bottom",          -- How to align the notification window
         relative = "editor",       -- What the notification window position is relative to
+        avoid = { "NvimTree", "testExplorer" },
       },
     },
 
     -- Options related to integrating with other plugins
-    integration = {
-      ["nvim-tree"] = {
-        enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
-      },
-      ["xcodebuild-nvim"] = {
-        enable = true, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
-      },
-    },
 
     -- Options related to logging
     logger = {
