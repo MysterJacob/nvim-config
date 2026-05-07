@@ -51,3 +51,4 @@ require("ibl").setup({
     enabled = false
   }
 })
+require("todo-comments").setup()
