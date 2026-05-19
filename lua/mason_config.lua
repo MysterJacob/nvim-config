@@ -12,6 +12,8 @@ require("mason-lspconfig").setup({
     "cssls",
     "ruff",
     "glsl_analyzer",
-    "kotlin_language_server"
+    "kotlin_language_server",
+    "jdtls",
+    "asm_lsp"
   }
 })

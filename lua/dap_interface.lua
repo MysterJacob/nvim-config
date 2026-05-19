@@ -31,7 +31,7 @@ dapui.setup(
         size = 55,
         elements = {
           { id = "repl" },
-          { id = "watches", size = 0.2},
+          { id = "watches", size = 0.2 },
           { id = "scopes",  size = 0.3 },
         }
       },

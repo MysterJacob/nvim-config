@@ -8,7 +8,7 @@ notify.setup({
   stages = "fade_in_slide_out",
   level = "info",
   top_down = false,
-  timeout=500,
+  timeout = 500,
 }
 )
 vim.notify = notify

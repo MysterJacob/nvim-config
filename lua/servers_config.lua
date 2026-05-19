@@ -57,8 +57,15 @@ setupServer("clangd", {
   on_attach = on_attach,
   settings = {
     root_dir = vim.loop.cwd(),
+  },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
   }
-})
+}
+)
 setupServer("glsl_analyzer", {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -66,6 +73,7 @@ setupServer("glsl_analyzer", {
     root_dir = vim.loop.cwd(),
   }
 })
+setupServer("asm_lsp", {});
 
 setupServer("rust_analyzer", {
   settings = {
@@ -220,3 +228,4 @@ setupServer("vuels", {
 })
 
 setupServer("kotlin_language_server", {});
+setupServer("jdtls", {});
