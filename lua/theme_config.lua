@@ -1,6 +1,7 @@
 vim.g.transparent_enabled = true
-require("transparent").setup({ -- Optional, you don't have to run setup.
-  groups = {                   -- table: default groups
+
+require("transparent").setup({
+  groups = {
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
@@ -8,41 +9,59 @@ require("transparent").setup({ -- Optional, you don't have to run setup.
     'EndOfBuffer', 'FoldColumn'
   },
   extra_groups = {
-    "NormalFloat",    -- plugins which have float panel such as Lazy, Mason, LspInfo
-    "FloatBorder",
-    "NvimTreeNormal", -- NvimTree
-    "TelescopeNormal",
-    "TelescopeBorder",
-    "TelescopeSelectionCaret",
-    "TelescopeMatching",
-    "TelescopePromptNormal",
-    "TelescopePromptTitle",
-    "TelescopePromptPrefix",
-    "TelescopePromptBorder",
-    "TelescopePreviewTitle",
-    "TelescopePreviewBorder",
-    "TelescopeResultsTitle",
-    "TelescopeResultsBorder",
-    "UfoPreviewSbar",
-    "UfoPreviewThumb",
-    "UfoPreviewWinBar",
-    "UfoPreviewCursorLine",
-    "UfoFoldedEllipsis",
-    "UfoCursorFoldedLine",
-  }, -- table: additional groups that should be cleared
-  exclude_groups = {
-    "CursorLine"
-  }, -- table: groups you don't want to clear
+    "NormalFloat", "FloatBorder",
+    "TelescopeNormal", "TelescopeBorder",
+    "TelescopeSelectionCaret", "TelescopeMatching",
+    "TelescopePromptNormal", "TelescopePromptTitle",
+    "TelescopePromptPrefix", "TelescopePromptBorder",
+    "TelescopePreviewTitle", "TelescopePreviewBorder",
+    "TelescopeResultsTitle", "TelescopeResultsBorder",
+    "UfoPreviewSbar", "UfoPreviewThumb", "UfoPreviewWinBar",
+    "UfoPreviewCursorLine", "UfoFoldedEllipsis", "UfoCursorFoldedLine", "NvimTreeNormal"
+  },
+  exclude_groups = { "CursorLine" },
 })
 
-vim.cmd([[
-  function! PatchHighlights() abort
-     hi WinSeparator guifg=#54546f guibg=None
-     hi NvimTreeCursorLine guibg=#463636
-  endfunction
+-- This autocmd always fires LAST, overriding whatever any colorscheme set
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+  pattern = "*",
+  callback = function()
+    local transparent = { bg = "NONE", ctermbg = "NONE" }
 
-  autocmd ColorScheme * call PatchHighlights()
+    -- Core editor
+    for _, grp in ipairs({
+      "Normal", "NormalNC", "NormalFloat",
+      "SignColumn", "LineNr", "CursorLineNr",
+      "StatusLine", "StatusLineNC",
+      "EndOfBuffer", "FoldColumn",
+      "Whitespace", "NonText",
+    }) do
+      local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = grp, link = false })
+      if ok then
+        hl.bg = nil
+        hl.ctermbg = nil
+        vim.api.nvim_set_hl(0, grp, hl)  -- keeps fg/gui, nukes bg only
+      end
+    end
 
-  colorscheme yorumi
-]])
+    -- Indent guides (works for ibl, indent-blankline v2, listchars)
+    for _, grp in ipairs({
+      "IblIndent", "IblScope",
+      "IndentBlanklineChar", "IndentBlanklineSpaceChar",
+      "IndentBlanklineContextChar",
+    }) do
+      pcall(vim.api.nvim_set_hl, 0, grp, { bg = "NONE", ctermbg = "NONE" })
+    end
 
+    -- NvimTree: keep visible with a subtle bg
+    vim.api.nvim_set_hl(0, "NvimTreeNormal",      { bg = "#14141f" })
+    vim.api.nvim_set_hl(0, "NvimTreeNormalNC",    { bg = "#14141f" })
+    vim.api.nvim_set_hl(0, "NvimTreeCursorLine",  { bg = "#463636" })
+
+    -- Borders / separators
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#54546f", bg = "NONE" })
+    vim.api.nvim_set_hl(0, "FloatBorder",  transparent)
+  end,
+})
+
+vim.cmd("colorscheme kanagawa")
