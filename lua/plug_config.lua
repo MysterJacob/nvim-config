@@ -26,6 +26,7 @@ Plug('rktjmp/lush.nvim')
 -- BAR
 Plug('nvim-lualine/lualine.nvim')
 -- SIGNATURE AND LSP
+Plug('mfussenegger/nvim-jdtls')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('williamboman/mason.nvim')
 Plug('j-hui/fidget.nvim')

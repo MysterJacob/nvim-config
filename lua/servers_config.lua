@@ -121,20 +121,24 @@ setupServer("ruff", {
   }
 })
 
-setupServer("pyright", {
+setupServer("pyrefly", {
   capabilities = capabilities,
   on_attach = on_attach,
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = false,
-        diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = false,
-        typeCheckingMode = false
-      }
-    }
-  }
 })
+-- setupServer("pyright", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   settings = {
+--     python = {
+--       analysis = {
+--         autoSearchPaths = false,
+--         diagnosticMode = "openFilesOnly",
+--         useLibraryCodeForTypes = false,
+--         typeCheckingMode = false
+--       }
+--     }
+--   }
+-- })
 
 setupServer("lua_ls", {
   settings = {
@@ -228,4 +232,13 @@ setupServer("vuels", {
 })
 
 setupServer("kotlin_language_server", {});
-setupServer("jdtls", {});
+
+local jdtls = require('jdtls')
+local root_dir = jdtls.setup.find_root({ 'gradlew', '.git', 'mvnw', 'pom.xml' })
+local jdtls_config = {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = { vim.fn.expand('~/.local/share/nvim/mason/bin/jdtls') },
+  root_dir = root_dir,
+}
+setupServer("jdtls", jdtls_config)

@@ -1,6 +1,5 @@
 require "map"
 
-
 -- markdown-preview
 vim.g.mkdp_page_title = '「${name}」'
 vim.g.mkdp_filetypes = { 'markdown' }
@@ -9,7 +8,7 @@ vim.g.mkdp_theme = 'dark'
 -- autocomment
 vim.g.default_inline_comment = '#'
 vim.g.inline_comment_dict = {
-  ["//"] = { "js", "ts", "cpp", "c", "h", "hpp", "dart", "vect", "frag" },
+  ["//"] = { "js", "ts", "cpp", "c", "h", "hpp", "dart", "vect", "frag", "java" },
   ["#"] = { 'py', 'sh' },
   ["--"] = { 'lua', 'sql' },
   ["\""] = { 'vim' },
@@ -43,12 +42,12 @@ require('gitsigns').setup({
   },
 })
 -- scope lines
-require("ibl").setup({
-  indent = {
-    char = "▏",
-  },
-  scope = {
-    enabled = false
-  }
-})
+-- require("ibl").setup({
+--   indent = {
+--     char = "▏",
+--   },
+--   scope = {
+--     enabled = false
+--   }
+-- })
 require("todo-comments").setup()

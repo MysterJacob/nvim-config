@@ -14,6 +14,7 @@ require("mason-lspconfig").setup({
     "glsl_analyzer",
     "kotlin_language_server",
     "jdtls",
-    "asm_lsp"
+    "asm_lsp",
+    "pyrefly"
   }
 })

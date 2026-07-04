@@ -17,7 +17,8 @@ require("transparent").setup({
     "TelescopePreviewTitle", "TelescopePreviewBorder",
     "TelescopeResultsTitle", "TelescopeResultsBorder",
     "UfoPreviewSbar", "UfoPreviewThumb", "UfoPreviewWinBar",
-    "UfoPreviewCursorLine", "UfoFoldedEllipsis", "UfoCursorFoldedLine", "NvimTreeNormal", "NvimTreeNormalNC"
+    "UfoPreviewCursorLine", "UfoFoldedEllipsis", "UfoCursorFoldedLine", "NvimTreeNormal", "NvimTreeNormalNC",
+    "NvimTreeRootFolder"
   },
   exclude_groups = { "CursorLine" },
 })
@@ -40,7 +41,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
       if ok then
         hl.bg = nil
         hl.ctermbg = nil
-        vim.api.nvim_set_hl(0, grp, hl)  -- keeps fg/gui, nukes bg only
+        vim.api.nvim_set_hl(0, grp, hl) -- keeps fg/gui, nukes bg only
       end
     end
 
@@ -54,14 +55,14 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
     end
 
     -- NvimTree: keep visible with a subtle bg
-    vim.api.nvim_set_hl(0, "NvimTreeNormal",      { bg = "#14141f" })
-    vim.api.nvim_set_hl(0, "NvimTreeNormalNC",    { bg = "#14141f" })
-    vim.api.nvim_set_hl(0, "NvimTreeCursorLine",  { bg = "#463636" })
+    vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "#14141f" })
+    vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "#14141f" })
+    vim.api.nvim_set_hl(0, "NvimTreeCursorLine", { bg = "#463636" })
 
     -- Borders / separators
     vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#54546f", bg = "NONE" })
-    vim.api.nvim_set_hl(0, "FloatBorder",  transparent)
+    vim.api.nvim_set_hl(0, "FloatBorder", transparent)
   end,
 })
 
-vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme yorumi")

@@ -49,19 +49,25 @@ dapui.setup(
     }
   })
 
--- codelldb
-dap.adapters.lldb = {
-  type = "server",
-  port = "${port}",
+dap.adapters.codelldb = {
+  type = 'server',
+  port = '${port}',
   executable = {
-    command = "/usr/bin/lldb",
-    args = { "--port", "${port}" },
+    command = vim.fn.stdpath('data') .. "/mason/bin/codelldb",
+    args = { '--port', '${port}' },
   },
 }
+dap.adapters.gdb = {
+  id = 'gdb',
+  type = 'executable',
+  command = 'gdb',
+  args = { '--quiet', '--interpreter=dap' },
+}
+
 vim.keymap.set('n', '<leader>ds',
   function()
     tree.tree.close()
-    dapui.open()
+    dapui.open({ reset = true })
     dap.continue()
     isDapRunning = true;
     vim.opt.mouse = "a"
@@ -97,72 +103,39 @@ vim.keymap.set("n", "<leader>tc", function()
   telescope.extensions.dap.commands({})
 end)
 
-local function file_exists(name)
-  local f = io.open(name, "r")
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
-
--- CPP
-dap.configurations.cpp = {
+dap.configurations.c = {
   {
-    -- Change it to "cppdbg" if you have vscode-cpptools
-    name = "cpp",
-    type = "lldb",
+    name = "Compile & Debug current file",
+    type = "codelldb",
     request = "launch",
     program = function()
-      local name = "filenotfound"
-      local makefilePresent = file_exists("makefile")
-      if makefilePresent then
-        vim.print("make debug")
-        os.execute("make debug > /dev/null 2>&1")
-        name = "debug"
-      else
-        local filetype = vim.bo.filetype
-        local filename = vim.fn.expand("%")
-        local basename = vim.fn.expand('%:t:r')
-        if filetype == "c" then
-          os.execute(string.format("gcc -g -o %s %s", basename, filename))
-        else
-          os.execute(string.format("g++ -g -o %s %s", basename, filename))
-        end
-        name = basename
+      local file = vim.fn.expand("%:p")
+      local out  = vim.fn.expand("%:p:r")
+      local cmd  = string.format("gcc -g -o %s %s", out, file)
+      local code = os.execute(cmd)
+      if code ~= 0 then
+        vim.notify("Compilation failed!", vim.log.levels.ERROR)
+        return dap.ABORT
       end
-      require('nvim-tree.api').tree.close()
-      return name
+      return out
     end,
-    args = function()
-      local argv = {}
-      arg = vim.fn.input(string.format("argv: "))
-      for a in string.gmatch(arg, "%S+") do
-        table.insert(argv, a)
+    stopAtEntry = true,
+  },
+  {
+    name = "Compile & Debug using make",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      local code = os.execute("make debug")
+      if code ~= 0 then
+        vim.notify("Compilation failed!", vim.log.levels.ERROR)
+        return dap.ABORT
       end
-      vim.cmd('echo ""')
-      return argv
     end,
-    cwd = "${workspaceFolder}",
-    --     stopAtEntry = true,
-    MIMode = "gdb",
-    miDebuggerPath = "/usr/bin/gdb",
-    setupCommands = {
-      {
-        text = "-enable-pretty-printing",
-        description = "enable pretty printing",
-        ignoreFailures = false,
-      },
-    },
+    stopAtEntry = true,
   },
 }
--- You can even copy configurations
-dap.configurations.c = dap.configurations.cpp
-
--- Python
--- local python_path = table.concat({ vim.fn.stdpath('data'), 'mason', 'packages', 'debugpy', 'venv', 'bin', 'python' }, '/')
---     :gsub('//+', '/')
+dap.configurations.cpp = dap.configurations.c
 require('dap-python').setup('python3')
 
 telescope.load_extension("dap")
