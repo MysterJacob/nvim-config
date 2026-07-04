@@ -125,20 +125,6 @@ setupServer("pyrefly", {
   capabilities = capabilities,
   on_attach = on_attach,
 })
--- setupServer("pyright", {
---   capabilities = capabilities,
---   on_attach = on_attach,
---   settings = {
---     python = {
---       analysis = {
---         autoSearchPaths = false,
---         diagnosticMode = "openFilesOnly",
---         useLibraryCodeForTypes = false,
---         typeCheckingMode = false
---       }
---     }
---   }
--- })
 
 setupServer("lua_ls", {
   settings = {

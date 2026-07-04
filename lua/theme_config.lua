@@ -18,7 +18,7 @@ require("transparent").setup({
     "TelescopeResultsTitle", "TelescopeResultsBorder",
     "UfoPreviewSbar", "UfoPreviewThumb", "UfoPreviewWinBar",
     "UfoPreviewCursorLine", "UfoFoldedEllipsis", "UfoCursorFoldedLine", "NvimTreeNormal", "NvimTreeNormalNC",
-    "NvimTreeRootFolder"
+    "NvimTreeRootFolder", "Title"
   },
   exclude_groups = { "CursorLine" },
 })
